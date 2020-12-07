@@ -30,6 +30,10 @@ Requirements:
   * You also can stream to some outside machine which has more streaming capacity
 * Enough CPU and/or GPU power to encode video stream real time
 
+To lower latency issues: 
+
+* Use direct wired ethernet connection to your router
+
 First time only (might need reboot):
 
     # systemctl enable usbip
