@@ -4,8 +4,8 @@ set -o pipefail
 
 LANG=C
 
-DEST=224.0.0.1
-DESTIF=wg0
+SRC=224.0.0.1
+SRCIF=wg0
 
 VRTPPORT=8000
 VRTCPPORT=8001
@@ -19,7 +19,7 @@ VIDEO_DEC="avdec_h264"
 VIDEO_SINK="autovideosink"
 
 gst-launch-1.0 -v rtpbin name=rtpbin buffer-mode=none drop-on-latency=true latency=$LATENCY \
-     udpsrc caps=$VIDEO_CAPS port=$VRTPPORT address=$DEST multicast-iface=$DESTIF ! rtpbin.recv_rtp_sink_0 \
+     udpsrc caps=$VIDEO_CAPS port=$VRTPPORT address=$SRC multicast-iface=$SRCIF ! rtpbin.recv_rtp_sink_0 \
        rtpbin. ! rtph264depay ! $VIDEO_DEC ! $VIDEO_SINK \
-     udpsrc port=$VRTCPPORT address=$DEST multicast-iface=$DESTIF ! rtpbin.recv_rtcp_sink_0 \
-       rtpbin.send_rtcp_src_0 ! udpsink port=$VRTCPSRCPORT host=$DEST multicast-iface=$DESTIF sync=false async=false 
+     udpsrc port=$VRTCPPORT address=$SRC multicast-iface=$SRCIF ! rtpbin.recv_rtcp_sink_0 \
+       rtpbin.send_rtcp_src_0 ! udpsink port=$VRTCPSRCPORT host=$SRC multicast-iface=$SRCIF sync=false async=false 
