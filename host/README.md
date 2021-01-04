@@ -16,17 +16,28 @@ To decrease latency issues:
 
 First time only (might need reboot):
 
-    # systemctl enable usbip
-    # systemctl start usbip
+    # systemctl enable usbipd
+    # systemctl start usbipd
 
 Load kernel module to accept remote USB devices:
+
+    % sudo modprobe vhci-hcd
+    
+Or permanently:
 
     # echo "vhci-hcd" > /etc/modules-load.d/vhci-hcd.conf
     
 ## Stream a window (game/app)
 
-    $ xwininfo -int
+    $ xwininfo -int -children
+    
+Find the correct window ID number and use it:    
+    
     $ ./sender.sh <WID from xwininfo>
+
+Example
+
+    $ ./sender.sh 73457634
 
 Connect remote player(s) gamepad(s), joystick(s) and such to your machine:
 

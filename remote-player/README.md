@@ -15,8 +15,8 @@ To decrease latency issues:
 
 First time only (might need reboot):
 
-    # systemctl enable usbip
-    # systemctl start usbip
+    # systemctl enable usbipd
+    # systemctl start usbipd
 
 List USB devices:
 
