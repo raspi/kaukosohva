@@ -4,8 +4,7 @@ Play games remotely with Linux.
 
 ## Current state 
 
-This is proof of concept for technical users. Security and latency issues are everywhere. Can be used to play turn-based or other non-time-critical games.
-
+This is proof of concept prototype for technical users. 
 
 # Architecture
 
@@ -13,12 +12,24 @@ This is proof of concept for technical users. Security and latency issues are ev
 
 # Main problems TODO
 
-* Security
 * Lower the latency for streaming
-  * Get rid of all streaming buffer(s)
-  * CBR or VBR?
+  * Minimize streaming buffer(s)
+  * Tune x264 parameters for lowest latency
+  * Tune RTP parameters for lowest latency
+  * Constant or variable bitrate (CBR or VBR)?
+
+# FAQ
+
+* Why x264 over RTP?
+  * Because it's a standard - https://tools.ietf.org/html/rfc6184
+  * Because GPU hardware acceleration in bot encoding and decoding
+* Why multicast?
+  * Eliminates need for extra server software as kernel sends all the packets to everyone automatically
+* Why GStreamer?
+  * Lots of tuning options
 
 # See 
+
 * [host](host) directory for how to host a game
 * [remote-player](remote-player) directory for how to connect to a host as a remote player
 
@@ -30,10 +41,4 @@ This is proof of concept for technical users. Security and latency issues are ev
   * https://en.wikipedia.org/wiki/Private_network
 * Video/Audio
   * https://en.wikipedia.org/wiki/Real-time_Transport_Protocol
-  * https://en.wikipedia.org/wiki/Real_Time_Streaming_Protocol
   * https://en.wikipedia.org/wiki/Advanced_Video_Coding
-  * https://en.wikipedia.org/wiki/MPEG_transport_stream
-* Service discovery
-  * https://en.wikipedia.org/wiki/Simple_Service_Discovery_Protocol
-  * https://en.wikipedia.org/wiki/Service_Location_Protocol
- 
