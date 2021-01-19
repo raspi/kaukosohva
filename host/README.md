@@ -49,13 +49,27 @@ You can use for example `jstest` for testing gamepad inputs.
 
 ## Stream a window (game/app)
 
+First, start your game in a window and use some resolution which doesn't require too much bandwidth and all players has at least that resolution available, such as 720p or 1080p.
+
+Find the window ID:    
+
     % xwininfo -int -children
     
+Now click the window you want to stream.
+
 Find the correct window ID number and use it:    
     
     % ./sender.sh <WID from xwininfo>
 
-Example
+If the sender doesn't start with the first ID listed by `xwininfo` the application might have spawned a secondary sub-window. So simply try with children's window ID. 
+
+Example:
 
     % ./sender.sh 73457634
     
+## FAQ
+
+* I resized the window and streaming stopped?
+  * You must restart the sender if you change the window's size that you are streaming, this is because video encoders are designed for constant resolution
+* Remote player sees only black screen or some part of screen is black?
+  * There can't be any windows on top of the window that's being streamed, this is because xorg doesn't render what's not seen
