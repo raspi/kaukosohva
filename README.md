@@ -28,8 +28,8 @@ This is proof of concept prototype for technical users.
 * Why GStreamer?
   * Lots of tuning options
 * Does it matter who hosts VPN (WireGuard)?
-  * No, anyone can host the main VPN server where host/remote player(s) connect
-
+  * Who has the most bandwidth and stable connection is recommended
+  
 # See 
 
 * [host](host) directory for how to host a game
@@ -48,5 +48,5 @@ This is proof of concept prototype for technical users.
 # Tested, didn't work
 
 * ffmpeg, mpv, vlc 
- * too many buffers
- * 1000-4000 ms+ latency even locally
+  * too many buffers
+  * 1000-4000 ms+ latency even locally
