@@ -2,35 +2,38 @@
 
 Requirements:
 
-* [usbip](http://usbip.sourceforge.net/) for sharing gamepad(s), joystick(s) and such to host machine
-* gstreamer
-* WireGuard
+* [usbip package](http://usbip.sourceforge.net/) for sharing gamepad(s), joystick(s) and such to host machine
+* [GStreamer](https://gstreamer.freedesktop.org/)
+* [WireGuard](https://www.wireguard.com/) (built into kernel)
 
 To decrease latency issues:
 
 * Use direct wired ethernet connection to your router
 * Connect gamepad(s) via USB cable directly
 
-## Share USB gamepad(s), joystick(s) and such to host machine
-
 First time only (might need reboot):
 
-    # systemctl enable usbipd
-    # systemctl start usbipd
+    % sudo systemctl enable usbipd
+    % sudo systemctl start usbipd
+
+## Share 
+
+First connect to the host or proxy machine via WireGuard VPN.
+
+Share USB gamepad(s), joystick(s) and such to host machine:
 
 List USB devices:
 
-    $ usbip list --local
+    % usbip list --local
 
 Share USB device:
 
-    $ usbip bind --busid 1-1.4
+    % usbip bind --busid 1-1.4
     
-Now tell host your IP address. Please note that `usbip` uses TCP port 3240 which needs to pass possible firewall(s).
-    
-Connect to host stream:
+Now tell host your VPN IP address so that they can connect your shared device(s) to the host machine. Please note that `usbip` uses TCP port 3240 which needs to pass possible firewall(s).
+   
+Connect to host multicast stream:
 
-    $ ./receiver.sh
+    % ./receiver.sh
 
-You now should see the game and play it remotely.
- 
+You should now see the shared game from the host in few seconds and play it remotely.
