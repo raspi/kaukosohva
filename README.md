@@ -20,13 +20,17 @@ This is proof of concept prototype for technical users.
 
 # FAQ
 
+* Why x264?
+  * Because GPU encoding/decoding hardware acceleration
 * Why x264 over RTP?
   * Because it's a standard - https://tools.ietf.org/html/rfc6184
-  * Because GPU encoding/decoding hardware acceleration
 * Why multicast?
   * Eliminates need for extra server software as kernel sends host's stream to everyone connected to the VPN automatically
 * Why GStreamer?
   * Lots of tuning options
+  * Lots of plugins
+  * Debugger - https://gstreamer.freedesktop.org/documentation/tutorials/basic/debugging-tools.html
+  * View latency issues in the pipeline - https://www.flathub.org/apps/details/org.freedesktop.GstDebugViewer
 * Does it matter who hosts VPN (WireGuard)?
   * Who has the most bandwidth and stable connection is recommended
   
