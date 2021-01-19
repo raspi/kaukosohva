@@ -24,9 +24,11 @@ This is proof of concept prototype for technical users.
   * Because it's a standard - https://tools.ietf.org/html/rfc6184
   * Because GPU hardware acceleration in bot encoding and decoding
 * Why multicast?
-  * Eliminates need for extra server software as kernel sends all the packets to everyone automatically
+  * Eliminates need for extra server software as kernel sends host's stream to everyone connected to the VPN automatically
 * Why GStreamer?
   * Lots of tuning options
+* Does it matter who hosts VPN (WireGuard)?
+  * No, anyone can host the main VPN server where host/remote player(s) connect
 
 # See 
 
@@ -42,3 +44,9 @@ This is proof of concept prototype for technical users.
 * Video/Audio
   * https://en.wikipedia.org/wiki/Real-time_Transport_Protocol
   * https://en.wikipedia.org/wiki/Advanced_Video_Coding
+
+# Tested, didn't work
+
+* ffmpeg, mpv, vlc 
+ * too many buffers
+ * 1000-4000 ms+ latency even locally
