@@ -22,7 +22,7 @@ This is proof of concept prototype for technical users.
 
 * Why x264 over RTP?
   * Because it's a standard - https://tools.ietf.org/html/rfc6184
-  * Because GPU hardware acceleration in bot encoding and decoding
+  * Because GPU encoding/decoding hardware acceleration
 * Why multicast?
   * Eliminates need for extra server software as kernel sends host's stream to everyone connected to the VPN automatically
 * Why GStreamer?
