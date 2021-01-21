@@ -14,15 +14,15 @@ This is proof of concept prototype for technical users.
 
 * Lower the latency for streaming
   * Minimize streaming buffer(s)
-  * Tune x264 parameters for lowest latency
+  * Tune h264 parameters for lowest latency
   * Tune RTP parameters for lowest latency
   * Constant or variable bitrate (CBR or VBR)?
 
 # FAQ
 
-* Why x264?
+* Why h264?
   * Because GPU encoding/decoding hardware acceleration
-* Why x264 over RTP?
+* Why h264 over RTP?
   * Because it's a standard - https://tools.ietf.org/html/rfc6184
 * Why multicast?
   * Eliminates need for extra server software as kernel sends host's stream to everyone connected to the VPN automatically
