@@ -2,6 +2,54 @@
 set -eu
 set -o pipefail
 
+beverbose=no
+WID=-1
+DESTIF=wg0
+
+# options may be followed by one colon to indicate they have a required argument
+if ! options=$(getopt -o hv:I:w: -l help,verbose,interface:,windowid: -- "$@")
+then
+    # something went wrong, getopt will put out an error message for us
+    exit 1
+fi
+
+set -- $options
+
+# Parse arguments
+while [ $# -gt 0 ]
+do
+    case $1 in
+    -h|--help)
+      echo "Usage: $0"
+      echo "  -I|--interface <interface>     Required. for example: wg0"
+      echo "  -w|--windowid <window id>     Required. for example: 65746"
+      echo ""
+      exit 0
+    ;;
+
+    -v|--verbose) beverbose="yes" ;;
+
+    # for options with required arguments, an additional shift is required
+    -I|--interface) DESTIF="${2//\'/}" ; shift;;
+    -w|--windowid) WID="${2//\'/}" ; shift;;
+
+    (--) shift; break;;
+    (-*) echo "$0: error - unrecognized option $1" 1>&2; exit 1;;
+    (*) break;;
+    esac
+    shift
+done
+
+if [[ ! -d "/sys/class/net/$DESTIF" ]]; then
+  echo "Invalid interface: $DESTIF"
+  exit 1
+fi
+
+if ! xwininfo -int -id "$WID"; then
+  echo "Invalid window id: $WID"
+  exit 1
+fi
+
 #export GST_DEBUG="GST_TRACER:7"
 export GST_DEBUG_DUMP_DOT_DIR=.
 export GST_DEBUG_FILE="trace.log"
@@ -10,16 +58,13 @@ export GST_DEBUG_COLOR_MODE=off
 
 LANG=C
 
-WID=$1
-
 # change this to send the RTP data and RTCP to another host
-DESTIF=wg0
 DEST=224.0.0.1
 MTU=1400
 
 FPS=60
-KBITRATE=8000
-MAXKBITRATE=9000
+KBITRATE=7000
+MAXKBITRATE=$(( $KBITRATE + 1000 ))
 VRTPSINKPORT=8000
 VRTCPSINKPORT=8001
 VRTCPSRCPORT=5005
@@ -35,6 +80,6 @@ VRTCPSRC="udpsrc port=$VRTCPSRCPORT address=$DEST multicast-iface=$DESTIF name=v
 
 gst-launch-1.0 -e rtpbin name=rtpbin buffer-mode=none latency=0 drop-on-latency=true max-dropout-time=500 \
     $VSOURCE ! $VENC ! rtpbin.send_rtp_sink_0 \
-        rtpbin.send_rtp_src_0 ! queue max-size-buffers=$(( $FPS * 2 )) max-size-bytes=0 max-size-time=500000000 min-threshold-buffers=1 ! $VRTPSINK     \
-        rtpbin.send_rtcp_src_0 ! $VRTCPSINK   \
-      $VRTCPSRC ! rtpbin.recv_rtcp_sink_0     
+        rtpbin.send_rtp_src_0 ! queue max-size-buffers=$(( $FPS * 2 )) max-size-bytes=0 max-size-time=500000000 min-threshold-buffers=1 ! $VRTPSINK \
+        rtpbin.send_rtcp_src_0 ! $VRTCPSINK \
+      $VRTCPSRC ! rtpbin.recv_rtcp_sink_0

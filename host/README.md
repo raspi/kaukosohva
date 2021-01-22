@@ -27,7 +27,7 @@ Load kernel module to accept remote USB devices:
     
 Or permanently:
 
-    # echo "vhci-hcd" > /etc/modules-load.d/vhci-hcd.conf
+    % sudo sh -c 'echo "vhci-hcd" > /etc/modules-load.d/vhci-hcd.conf'
     
 Connect remote player(s) gamepad(s), joystick(s) and such to your machine:
 
@@ -57,19 +57,21 @@ Find the window ID:
     
 Now click the window you want to stream.
 
-Find the correct window ID number and use it:    
+Find the correct window ID number and use it:
     
-    % ./sender.sh <WID from xwininfo>
+    % ./sender.sh -I wg0 -w <Window ID from xwininfo>
 
 If the sender doesn't start with the first ID listed by `xwininfo` the application might have spawned a secondary sub-window. So simply try with children's window ID. 
 
 Example:
 
-    % ./sender.sh 73457634
+    % ./sender.sh -I wg0 -w 73457634
+
+See `./sender.sh --help` for parameters
     
 ## FAQ
 
 * I resized the window and streaming stopped?
   * You must restart the sender if you change the window's size that you are streaming, this is because video encoders are designed for constant resolution
 * Remote player sees only black screen or some part of screen is black?
-  * There can't be any windows on top of the window that's being streamed, this is because xorg doesn't render what's not seen
+  * There can't be any windows on top of the window that's being streamed, this is because X11 doesn't render what's not seen

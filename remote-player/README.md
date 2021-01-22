@@ -32,8 +32,8 @@ Share USB device:
     
 Now tell host your VPN IP address so that they can connect your shared device(s) to the host machine. Please note that `usbip` uses TCP port 3240 which needs to pass possible firewall(s).
    
-Connect to host multicast stream:
+Connect to host multicast stream interface:
 
-    % ./receiver.sh
+    % ./receiver.sh -I wg0
 
 You should now see the shared game from the host in few seconds and play it remotely.
