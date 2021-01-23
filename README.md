@@ -48,6 +48,11 @@ This is proof of concept prototype for technical users.
 * Video/Audio
   * https://en.wikipedia.org/wiki/Real-time_Transport_Protocol
   * https://en.wikipedia.org/wiki/Advanced_Video_Coding
+* GStreamer
+  * https://gstreamer.freedesktop.org/documentation/plugins_doc.html?gi-language=c
+  * https://github.com/GStreamer/gstreamer
+  * https://lists.freedesktop.org/archives/gstreamer-devel/
+  * https://github.com/GStreamer/gst-rtsp-server
 
 # Tested, didn't work
 
