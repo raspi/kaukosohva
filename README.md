@@ -54,6 +54,17 @@ This is proof of concept prototype for technical users.
   * https://lists.freedesktop.org/archives/gstreamer-devel/
   * https://github.com/GStreamer/gst-rtsp-server
 
+# Not tested yet
+
+If h264 over RTP multicast doesn't pan out there's still many things to try with GStreamer:
+
+* Drop multicast and stream to UDP port in a remote player's machine (this limits player count)
+* Try h264 inside [MPEG-TS](https://gstreamer.freedesktop.org/documentation/rtp/rtpmp2tpay.html?gi-language=c) container over multicast
+* Try GStreamer's [RTSP server](https://github.com/GStreamer/gst-rtsp-server) if the host doesn't have enough upload bandwidth for all players there's RTSP proxies like [rtsp-simple-server](https://github.com/aler9/rtsp-simple-server)
+* [RTMP](https://gstreamer.freedesktop.org/documentation/rtmp/index.html?gi-language=c)
+* [SRT](https://gstreamer.freedesktop.org/documentation/srt/index.html?gi-language=c)
+* and others
+
 # Tested, didn't work
 
 * ffmpeg, mpv, vlc 
